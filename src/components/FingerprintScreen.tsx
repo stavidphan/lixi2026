@@ -7,8 +7,9 @@ const HOLD_DURATION = 1500;
 const PROGRESS_INTERVAL = 16;
 
 export default function FingerprintScreen() {
-  const { drawPrize, state } = useGame();
+  const { drawPrize, state, goToLobby } = useGame();
   const [pressing, setPressing] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
   const [progress, setProgress] = useState(0);
   const [touchPos, setTouchPos] = useState<{ x: number; y: number } | null>(null);
   const [confirmed, setConfirmed] = useState(false);
@@ -105,6 +106,43 @@ export default function FingerprintScreen() {
       onTouchCancel={handlePressEnd}
     >
       <div className="tet-background" />
+
+      <button
+        className="back-btn"
+        onMouseDown={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
+        onClick={() => setShowExitConfirm(true)}
+        title="Về sảnh chờ"
+      >
+        ← Thoát
+      </button>
+
+      <AnimatePresence>
+        {showExitConfirm && (
+          <motion.div
+            className="exit-confirm-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onMouseDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
+          >
+            <motion.div
+              className="exit-confirm-dialog"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+            >
+              <p>Tạm dừng và quay về sảnh chờ?</p>
+              <p className="exit-confirm-sub">Phiên chơi sẽ được lưu lại.</p>
+              <div className="exit-confirm-actions">
+                <button className="btn-secondary" onClick={() => setShowExitConfirm(false)}>Ở lại</button>
+                <button className="btn-primary" onClick={goToLobby}>Thoát</button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {ripples.map((r) => (

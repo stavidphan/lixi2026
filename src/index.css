@@ -225,3 +225,81 @@ h1, h2, h3 {
   background-clip: text;
   text-align: center;
 }
+
+/* Shared back button */
+.back-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  color: var(--gold-primary);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Noto Sans', sans-serif;
+  z-index: 10;
+}
+
+.back-btn:hover {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: var(--gold-primary);
+}
+
+/* Exit confirmation dialog */
+.exit-confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.exit-confirm-dialog {
+  background: linear-gradient(135deg, #2c1810, #3d1f14);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 20px;
+  padding: 28px;
+  text-align: center;
+  max-width: 320px;
+  width: 100%;
+}
+
+.exit-confirm-dialog p {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+
+.exit-confirm-sub {
+  font-size: 0.85rem !important;
+  color: rgba(255, 248, 231, 0.5) !important;
+  margin-bottom: 20px !important;
+}
+
+.exit-confirm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.exit-confirm-actions .btn-primary,
+.exit-confirm-actions .btn-secondary {
+  padding: 10px 24px;
+  font-size: 0.9rem;
+}
+
+/* Lantern icon shared */
+.lantern-icon {
+  font-size: 3rem;
+  margin-bottom: 8px;
+  animation: pulse 2s ease-in-out infinite;
+}

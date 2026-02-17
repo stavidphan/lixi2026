@@ -6,10 +6,11 @@ import ScratchCard from './ScratchCard';
 import './EnvelopeScreen.css';
 
 export default function EnvelopeScreen() {
-  const { state, nextPlayer } = useGame();
+  const { state, nextPlayer, goToLobby } = useGame();
   const [envelopeOpened, setEnvelopeOpened] = useState(false);
   const [scratched, setScratched] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const prize = state.currentPrize || 0;
 
@@ -36,6 +37,35 @@ export default function EnvelopeScreen() {
       exit={{ opacity: 0 }}
     >
       <div className="tet-background" />
+
+      <button className="back-btn" onClick={() => setShowExitConfirm(true)} title="Về sảnh chờ">
+        ← Thoát
+      </button>
+
+      <AnimatePresence>
+        {showExitConfirm && (
+          <motion.div
+            className="exit-confirm-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="exit-confirm-dialog"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+            >
+              <p>Tạm dừng và quay về sảnh chờ?</p>
+              <p className="exit-confirm-sub">Phiên chơi sẽ được lưu lại.</p>
+              <div className="exit-confirm-actions">
+                <button className="btn-secondary" onClick={() => setShowExitConfirm(false)}>Ở lại</button>
+                <button className="btn-primary" onClick={goToLobby}>Thoát</button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {showCelebration && (
         <div className="celebration-container">
@@ -118,9 +148,9 @@ export default function EnvelopeScreen() {
                   <p className="prize-label">Bạn nhận được</p>
                   <p className="prize-amount">{formatMoneyFull(prize)}</p>
                   <div className="prize-decoration">
-                    <span>🎉</span>
                     <span>🧧</span>
-                    <span>🎉</span>
+                    <span>🧧</span>
+                    <span>🧧</span>
                   </div>
                 </div>
               </ScratchCard>

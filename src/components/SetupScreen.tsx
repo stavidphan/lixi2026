@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGame } from '../store/gameStore';
 import type { Denomination } from '../types';
@@ -11,7 +11,7 @@ function nextId() {
 }
 
 export default function SetupScreen() {
-  const { state, setDenominations, startGame } = useGame();
+  const { state, setDenominations, startGame, goToLobby } = useGame();
   const [denoms, setDenoms] = useState<Denomination[]>(
     state.denominations.length > 0
       ? state.denominations
@@ -20,6 +20,18 @@ export default function SetupScreen() {
   const [inputValue, setInputValue] = useState('');
   const [inputQty, setInputQty] = useState('');
   const [error, setError] = useState('');
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editValue, setEditValue] = useState('');
+  const [editQty, setEditQty] = useState('');
+
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    setDenominations(denoms);
+  }, [denoms, setDenominations]);
 
   const totalEnvelopes = denoms.reduce((sum, d) => sum + d.quantity, 0);
   const totalMoney = denoms.reduce((sum, d) => sum + d.value * d.quantity, 0);
@@ -64,6 +76,35 @@ export default function SetupScreen() {
     setDenoms(denoms.map((d) => (d.id === id ? { ...d, quantity: newQty } : d)));
   }
 
+  function handleEditStart(d: Denomination) {
+    setEditingId(d.id);
+    setEditValue(String(d.value));
+    setEditQty(String(d.quantity));
+  }
+
+  function handleEditSave() {
+    if (!editingId) return;
+    const newValue = parseInt(editValue);
+    const newQty = parseInt(editQty);
+    if (!newValue || newValue <= 0 || !newQty || newQty <= 0) return;
+
+    const duplicate = denoms.find((d) => d.id !== editingId && d.value === newValue);
+    if (duplicate) {
+      setError('Mệnh giá này đã tồn tại!');
+      return;
+    }
+
+    setDenoms(
+      denoms.map((d) => (d.id === editingId ? { ...d, value: newValue, quantity: newQty } : d))
+    );
+    setEditingId(null);
+    setError('');
+  }
+
+  function handleEditCancel() {
+    setEditingId(null);
+  }
+
   function handleStart() {
     if (denoms.length === 0) return;
     setDenominations(denoms);
@@ -84,6 +125,10 @@ export default function SetupScreen() {
       exit={{ opacity: 0 }}
     >
       <div className="tet-background" />
+
+      <button className="back-btn" onClick={goToLobby} title="Về sảnh chờ">
+        ← Sảnh chờ
+      </button>
 
       <motion.div
         className="setup-header"
@@ -163,28 +208,62 @@ export default function SetupScreen() {
             .map((d) => (
               <motion.div
                 key={d.id}
-                className="denom-item"
+                className={`denom-item ${editingId === d.id ? 'denom-item--editing' : ''}`}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
                 layout
               >
-                <div className="denom-info">
-                  <span className="denom-value">{formatMoneyFull(d.value)}</span>
-                  <span className="denom-total">= {formatMoneyFull(d.value * d.quantity)}</span>
-                </div>
-                <div className="denom-controls">
-                  <button className="qty-btn" onClick={() => handleUpdateQty(d.id, d.quantity - 1)}>
-                    −
-                  </button>
-                  <span className="denom-qty">{d.quantity}</span>
-                  <button className="qty-btn" onClick={() => handleUpdateQty(d.id, d.quantity + 1)}>
-                    +
-                  </button>
-                  <button className="remove-btn" onClick={() => handleRemove(d.id)}>
-                    ✕
-                  </button>
-                </div>
+                {editingId === d.id ? (
+                  <>
+                    <div className="edit-inputs">
+                      <input
+                        type="number"
+                        className="edit-input"
+                        value={editValue}
+                        onChange={(e) => setEditValue(e.target.value)}
+                        placeholder="Mệnh giá"
+                        min="1000"
+                        step="1000"
+                        autoFocus
+                      />
+                      <input
+                        type="number"
+                        className="edit-input edit-input--qty"
+                        value={editQty}
+                        onChange={(e) => setEditQty(e.target.value)}
+                        placeholder="SL"
+                        min="1"
+                      />
+                    </div>
+                    <div className="denom-controls">
+                      <button className="save-btn" onClick={handleEditSave}>✓</button>
+                      <button className="cancel-btn" onClick={handleEditCancel}>✕</button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="denom-info">
+                      <span className="denom-value">{formatMoneyFull(d.value)}</span>
+                      <span className="denom-total">= {formatMoneyFull(d.value * d.quantity)}</span>
+                    </div>
+                    <div className="denom-controls">
+                      <button className="edit-btn" onClick={() => handleEditStart(d)} title="Chỉnh sửa">
+                        ✎
+                      </button>
+                      <button className="qty-btn" onClick={() => handleUpdateQty(d.id, d.quantity - 1)}>
+                        −
+                      </button>
+                      <span className="denom-qty">{d.quantity}</span>
+                      <button className="qty-btn" onClick={() => handleUpdateQty(d.id, d.quantity + 1)}>
+                        +
+                      </button>
+                      <button className="remove-btn" onClick={() => handleRemove(d.id)}>
+                        ✕
+                      </button>
+                    </div>
+                  </>
+                )}
               </motion.div>
             ))}
         </AnimatePresence>

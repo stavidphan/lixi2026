@@ -1,0 +1,243 @@
+.lobby-screen {
+  padding-top: 40px;
+  gap: 20px;
+}
+
+.lobby-header {
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.lobby-title {
+  font-size: 2.2rem;
+  margin-bottom: 4px;
+}
+
+.lobby-subtitle {
+  color: rgba(255, 248, 231, 0.7);
+  font-size: 0.95rem;
+}
+
+.create-room-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+}
+
+.rooms-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+.room-card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.room-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.room-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: var(--gold-light);
+}
+
+.room-status {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.status-new {
+  background: rgba(255, 215, 0, 0.15);
+  color: var(--gold-primary);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.status-playing {
+  background: rgba(0, 200, 80, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(0, 200, 80, 0.3);
+}
+
+.status-ended {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 248, 231, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.room-card-info {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.room-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 80px;
+}
+
+.room-stat-label {
+  font-size: 0.7rem;
+  color: rgba(255, 248, 231, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.room-stat-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 248, 231, 0.85);
+}
+
+.room-card-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.room-resume-btn {
+  flex: 1;
+  padding: 10px;
+  font-size: 0.95rem;
+}
+
+.room-delete-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.25);
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.room-delete-btn:hover {
+  background: rgba(255, 0, 0, 0.25);
+}
+
+.confirm-delete {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #ff6b6b;
+}
+
+.confirm-yes, .confirm-no {
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.confirm-yes {
+  background: rgba(255, 0, 0, 0.3);
+  color: #ff6b6b;
+}
+
+.confirm-no {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 248, 231, 0.7);
+}
+
+.empty-lobby {
+  text-align: center;
+  padding: 40px 20px;
+  color: rgba(255, 248, 231, 0.4);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #2c1810, #3d1f14);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 20px;
+  padding: 28px;
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold-primary);
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.modal-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+  font-family: 'Noto Sans', sans-serif;
+  width: 100%;
+}
+
+.modal-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.modal-input:focus {
+  border-color: var(--gold-primary);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.modal-actions .btn-primary,
+.modal-actions .btn-secondary {
+  flex: 1;
+  padding: 12px;
+  font-size: 0.95rem;
+}

@@ -4,7 +4,7 @@ import { formatMoneyFull } from '../utils/lottery';
 import './EndScreen.css';
 
 export default function EndScreen() {
-  const { state, resetGame } = useGame();
+  const { state, resetGame, goToLobby } = useGame();
 
   const denomCounts: Record<number, number> = {};
   state.history.forEach((val) => {
@@ -77,17 +77,29 @@ export default function EndScreen() {
         )}
       </motion.div>
 
-      <motion.button
-        className="btn-primary reset-btn"
-        onClick={resetGame}
+      <motion.div
+        className="end-actions"
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.8 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
       >
-        🔄 Chơi Lại
-      </motion.button>
+        <motion.button
+          className="btn-primary reset-btn"
+          onClick={goToLobby}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          ← Về Sảnh Chờ
+        </motion.button>
+        <motion.button
+          className="btn-secondary reset-btn"
+          onClick={resetGame}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          🔄 Tạo Mới
+        </motion.button>
+      </motion.div>
     </motion.div>
   );
 }

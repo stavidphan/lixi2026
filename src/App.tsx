@@ -1,9 +1,12 @@
 import { AnimatePresence } from 'framer-motion';
 import { GameProvider, useGame } from './store/gameStore';
+import { AudioProvider } from './store/audioStore';
+import LobbyScreen from './components/LobbyScreen';
 import SetupScreen from './components/SetupScreen';
 import FingerprintScreen from './components/FingerprintScreen';
 import EnvelopeScreen from './components/EnvelopeScreen';
 import EndScreen from './components/EndScreen';
+import MusicToggle from './components/MusicToggle';
 import './App.css';
 
 function GameScreens() {
@@ -13,7 +16,9 @@ function GameScreens() {
     <div className="app-wrapper">
       <div className="tet-background" />
       <FloatingParticles />
+      <MusicToggle />
       <AnimatePresence mode="wait">
+        {state.screen === 'lobby' && <LobbyScreen key="lobby" />}
         {state.screen === 'setup' && <SetupScreen key="setup" />}
         {state.screen === 'fingerprint' && <FingerprintScreen key="fingerprint" />}
         {state.screen === 'envelope' && <EnvelopeScreen key="envelope" />}
@@ -46,9 +51,11 @@ function FloatingParticles() {
 
 function App() {
   return (
-    <GameProvider>
-      <GameScreens />
-    </GameProvider>
+    <AudioProvider>
+      <GameProvider>
+        <GameScreens />
+      </GameProvider>
+    </AudioProvider>
   );
 }
 

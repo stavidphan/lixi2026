@@ -1,17 +1,12 @@
 .setup-screen {
-  padding-top: 40px;
+  padding-top: 50px;
   gap: 20px;
+  position: relative;
 }
 
 .setup-header {
   text-align: center;
   margin-bottom: 10px;
-}
-
-.lantern-icon {
-  font-size: 3rem;
-  margin-bottom: 8px;
-  animation: pulse 2s ease-in-out infinite;
 }
 
 .setup-title {
@@ -257,6 +252,95 @@
   font-size: 1.2rem;
   margin-top: 8px;
   margin-bottom: 20px;
+}
+
+/* Edit mode */
+.denom-item--editing {
+  border-color: var(--gold-primary);
+  background: rgba(255, 215, 0, 0.08);
+}
+
+.edit-inputs {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+}
+
+.edit-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: white;
+  font-size: 0.9rem;
+  outline: none;
+  font-family: 'Noto Sans', sans-serif;
+  width: 100%;
+}
+
+.edit-input:focus {
+  border-color: var(--gold-primary);
+}
+
+.edit-input--qty {
+  max-width: 60px;
+}
+
+.edit-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(255, 215, 0, 0.15);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: var(--gold-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.edit-btn:hover {
+  background: rgba(255, 215, 0, 0.3);
+}
+
+.save-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(0, 200, 80, 0.2);
+  border: 1px solid rgba(0, 200, 80, 0.4);
+  color: #4ade80;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.save-btn:hover {
+  background: rgba(0, 200, 80, 0.35);
+}
+
+.cancel-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(255, 0, 0, 0.15);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 0, 0, 0.3);
 }
 
 /* Remove number input arrows */

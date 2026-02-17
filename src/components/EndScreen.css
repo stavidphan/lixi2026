@@ -115,6 +115,13 @@
   text-align: right;
 }
 
+.end-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .reset-btn {
   width: 100%;
   padding: 16px;
