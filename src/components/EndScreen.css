@@ -1,0 +1,122 @@
+.end-screen {
+  padding-top: 60px;
+  gap: 30px;
+  justify-content: flex-start;
+}
+
+.end-header {
+  text-align: center;
+}
+
+.end-icon {
+  font-size: 4rem;
+  margin-bottom: 12px;
+}
+
+.end-title {
+  font-size: 2.4rem;
+  margin-bottom: 8px;
+}
+
+.end-subtitle {
+  color: rgba(255, 248, 231, 0.6);
+  font-size: 1rem;
+}
+
+.stats-card {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.stats-heading {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold-primary);
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--gold-light);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: rgba(255, 248, 231, 0.5);
+}
+
+.denom-breakdown {
+  border-top: 1px solid rgba(255, 215, 0, 0.1);
+  padding-top: 16px;
+}
+
+.breakdown-title {
+  font-size: 0.9rem;
+  color: rgba(255, 248, 231, 0.6);
+  margin-bottom: 12px;
+}
+
+.breakdown-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.breakdown-denom {
+  min-width: 90px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gold-light);
+}
+
+.breakdown-bar-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.breakdown-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-primary), var(--gold-dark));
+  border-radius: 4px;
+}
+
+.breakdown-count {
+  min-width: 30px;
+  font-size: 0.85rem;
+  color: rgba(255, 248, 231, 0.5);
+  text-align: right;
+}
+
+.reset-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.1rem;
+}

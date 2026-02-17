@@ -1,0 +1,224 @@
+.envelope-screen {
+  justify-content: center;
+  gap: 20px;
+  overflow: hidden;
+}
+
+/* Envelope */
+.envelope-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.envelope {
+  width: 240px;
+  height: 320px;
+  position: relative;
+  perspective: 800px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.envelope-body {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #e63946 0%, #c41e3a 40%, #8b0000 100%);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.4);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  height: 80px;
+  background: linear-gradient(180deg, #d63031 0%, #c41e3a 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  z-index: 2;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.envelope-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+  margin-top: 20px;
+}
+
+.envelope-fu {
+  font-size: 3rem;
+  color: var(--red-dark);
+  font-weight: 900;
+  font-family: 'Playfair Display', serif;
+}
+
+.envelope-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--gold-primary);
+  letter-spacing: 8px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.envelope-year {
+  font-size: 0.9rem;
+  color: rgba(255, 215, 0, 0.6);
+  letter-spacing: 4px;
+}
+
+.envelope-shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 70%
+  );
+  animation: envelope-shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes envelope-shimmer {
+  0% { transform: translateX(-100%) translateY(-100%); }
+  100% { transform: translateX(100%) translateY(100%); }
+}
+
+.tap-hint {
+  color: rgba(255, 248, 231, 0.6);
+  font-size: 0.95rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Scratch area */
+.scratch-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 2;
+}
+
+.scratch-title {
+  font-size: 1.6rem;
+}
+
+.scratch-instruction {
+  color: rgba(255, 248, 231, 0.7);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Prize content (behind scratch) */
+.prize-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px;
+}
+
+.prize-label {
+  font-size: 0.9rem;
+  color: rgba(255, 248, 231, 0.7);
+}
+
+.prize-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--gold-primary);
+  text-shadow: 0 2px 8px rgba(255, 215, 0, 0.5);
+}
+
+.prize-decoration {
+  display: flex;
+  gap: 12px;
+  font-size: 1.5rem;
+}
+
+/* After scratch reveal */
+.after-scratch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.prize-display {
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 16px;
+  padding: 16px 40px;
+}
+
+.prize-big {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--gold-primary);
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.next-btn {
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Confetti celebration */
+.celebration-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  top: -20px;
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  background: var(--color);
+  border-radius: 2px;
+  animation: confetti-drop var(--duration) ease-in var(--delay) forwards;
+  transform: rotate(var(--rotation));
+}
+
+@keyframes confetti-drop {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
