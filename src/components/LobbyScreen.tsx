@@ -11,6 +11,7 @@ export default function LobbyScreen() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newRoomName, setNewRoomName] = useState('');
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [detailRoom, setDetailRoom] = useState<Room | null>(null);
 
   useEffect(() => {
     setRooms(loadRooms());
@@ -121,6 +122,9 @@ export default function LobbyScreen() {
                   <button className="btn-primary room-resume-btn" onClick={() => handleResume(room)}>
                     {status.className === 'status-ended' ? 'Xem lại' : 'Tiếp tục'}
                   </button>
+                  <button className="room-detail-btn" onClick={() => setDetailRoom(room)} title="Xem cài đặt">
+                    ⚙
+                  </button>
                   {confirmDeleteId === room.id ? (
                     <div className="confirm-delete">
                       <span>Xóa?</span>
@@ -178,6 +182,58 @@ export default function LobbyScreen() {
                 </button>
                 <button className="btn-primary" onClick={handleCreate}>
                   Tạo Phòng
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {detailRoom && (
+          <motion.div
+            className="modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setDetailRoom(null)}
+          >
+            <motion.div
+              className="modal-content detail-modal"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="modal-title">⚙ Cài đặt — {detailRoom.name}</h3>
+              {detailRoom.gameState.denominations.length > 0 ? (
+                <div className="detail-denom-list">
+                  {[...detailRoom.gameState.denominations]
+                    .sort((a, b) => a.value - b.value)
+                    .map((d) => (
+                      <div key={d.id} className="detail-denom-row">
+                        <span className="detail-denom-value">{formatMoneyFull(d.value)}</span>
+                        <span className="detail-denom-qty">x{d.quantity}</span>
+                        <span className="detail-denom-subtotal">{formatMoneyFull(d.value * d.quantity)}</span>
+                      </div>
+                    ))}
+                  <div className="detail-denom-summary">
+                    <div className="detail-summary-row">
+                      <span>Tổng phong bì:</span>
+                      <strong>{detailRoom.gameState.denominations.reduce((s, d) => s + d.quantity, 0)}</strong>
+                    </div>
+                    <div className="detail-summary-row">
+                      <span>Tổng tiền:</span>
+                      <strong>{formatMoneyFull(detailRoom.gameState.denominations.reduce((s, d) => s + d.value * d.quantity, 0))}</strong>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <p className="detail-empty">Chưa thiết lập mệnh giá.</p>
+              )}
+              <div className="modal-actions">
+                <button className="btn-primary" onClick={() => setDetailRoom(null)} style={{ width: '100%' }}>
+                  Đóng
                 </button>
               </div>
             </motion.div>

@@ -24,13 +24,12 @@ export default function SetupScreen() {
   const [editValue, setEditValue] = useState('');
   const [editQty, setEditQty] = useState('');
 
-  const isFirstRender = useRef(true);
+  const prevDenomsRef = useRef(denoms);
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
+    if (prevDenomsRef.current !== denoms) {
+      prevDenomsRef.current = denoms;
+      setDenominations(denoms);
     }
-    setDenominations(denoms);
   }, [denoms, setDenominations]);
 
   const totalEnvelopes = denoms.reduce((sum, d) => sum + d.quantity, 0);
@@ -203,7 +202,7 @@ export default function SetupScreen() {
         transition={{ delay: 0.5 }}
       >
         <AnimatePresence>
-          {denoms
+          {[...denoms]
             .sort((a, b) => a.value - b.value)
             .map((d) => (
               <motion.div

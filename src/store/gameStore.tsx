@@ -226,17 +226,27 @@ export function GameProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'DELETE_ROOM', roomId });
   }, []);
 
+  const setDenominations = useCallback(
+    (denoms: Denomination[]) => dispatch({ type: 'SET_DENOMINATIONS', denominations: denoms }),
+    [dispatch]
+  );
+  const startGame = useCallback(() => dispatch({ type: 'START_GAME' }), [dispatch]);
+  const drawPrize = useCallback(() => dispatch({ type: 'DRAW_PRIZE' }), [dispatch]);
+  const nextPlayer = useCallback(() => dispatch({ type: 'NEXT_PLAYER' }), [dispatch]);
+  const resetGame = useCallback(() => dispatch({ type: 'RESET_GAME' }), [dispatch]);
+  const loadRoom = useCallback((room: Room) => dispatch({ type: 'LOAD_ROOM', room }), [dispatch]);
+
   const value: GameContextType = {
     state,
     dispatch,
-    setDenominations: (denoms) => dispatch({ type: 'SET_DENOMINATIONS', denominations: denoms }),
-    startGame: () => dispatch({ type: 'START_GAME' }),
-    drawPrize: () => dispatch({ type: 'DRAW_PRIZE' }),
-    nextPlayer: () => dispatch({ type: 'NEXT_PLAYER' }),
-    resetGame: () => dispatch({ type: 'RESET_GAME' }),
+    setDenominations,
+    startGame,
+    drawPrize,
+    nextPlayer,
+    resetGame,
     goToLobby,
     createRoom,
-    loadRoom: (room: Room) => dispatch({ type: 'LOAD_ROOM', room }),
+    loadRoom,
     deleteRoom,
   };
 
